@@ -1,166 +1,122 @@
-apply plugin: 'maven-publish'
-apply plugin: 'com.github.hierynomus.license'
-apply plugin: 'fabric-loom'
-apply plugin: 'io.github.juuxel.loom-quiltflower'
-apply plugin: 'com.replaymod.preprocess'
-apply plugin: 'me.fallenbreath.yamlang'
+apply(plugin: "maven-publish")
+apply(plugin: "fabric-loom")
+apply(plugin: "io.github.juuxel.loom-quiltflower")
+apply(plugin: "com.replaymod.preprocess")
 
 int mcVersion = 1
 
 preprocess {
-	mcVersion = vars.get()["MC"]
-	tabIndentation = true
+    mcVersion = vars.get()["MC"]
+    tabIndentation = true
 }
 
 repositories {
-	maven {
-		url 'https://jitpack.io'
-	}
-	maven {
-		url 'https://www.cursemaven.com'
-	}
+    maven {
+        url 'https://maven.hendrixshen.top'
+    }
+    maven {
+        url 'https://jitpack.io'
+    }
+    maven {
+        url 'https://www.cursemaven.com/'
+    }
+    maven {
+        url = "https://api.modrinth.com/maven"
+    }
+    mavenCentral()
+    mavenLocal()
 }
 
 dependencies {
-	// loom
-	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    minecraft("com.mojang:minecraft:${project.minecraft_version}")
+    mappings(loom.officialMojangMappings())
 
-	// runtime mods
-//	modRuntimeOnly(mcVersion < 11900 ? "com.github.astei:lazydfu:0.1.2" : "com.github.Fallen-Breath:lazydfu:a7cfc44c0c")
-
-	// dependencies
-//	include(modImplementation(fabricApi.module("fabric-resource-loader-v0", project.fabric_api_version)))
+    modImplementation("top.hendrixshen:magiclib-${project.minecraft_version.replace(".", "_")}:${project.magiclib_version}") {
+        if (project.name == "snapshot") {
+            exclude group: 'curse.maven', module: 'in-game-account-switcher-232676'
+        }
+    }
+//    runtimeOnly(project(path: ":fabricWrapper"))
 }
 
 loom {
-	runConfigs.all {
-		// to make sure it generates all "Minecraft Client (:subproject_name)" applications
-		ideConfigGenerated = true
-		runDir '../../run'
-		vmArgs '-Dmixin.debug.export=true'
-	}
+//    mixin {
+//        // 如果使用 Legacy Mixin Ap，有时候 Mixin class remap 会有问题，该 remap 的不 remap
+//        useLegacyMixinAp = false
+//    }
+    runConfigs.all {
+        // to make sure it generates all "Minecraft Client (:subproject_name)" applications
+        // ideConfigGenerated = true
+        property("mixin.debug.export", "true")
+        runDir "../../run"
+    }
 }
 
 remapJar {
-	remapperIsolation = true
+    remapperIsolation = true
 }
 
 if (mcVersion >= 11800) {
-	sourceCompatibility = JavaVersion.VERSION_17
-	targetCompatibility = JavaVersion.VERSION_17
-}
-else if (mcVersion >= 11700) {
-	sourceCompatibility = JavaVersion.VERSION_16
-	targetCompatibility = JavaVersion.VERSION_16
-}
-else {
-	sourceCompatibility = JavaVersion.VERSION_1_8
-	targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+} else if (mcVersion >= 11700) {
+    sourceCompatibility = JavaVersion.VERSION_16
+    targetCompatibility = JavaVersion.VERSION_16
+} else {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 }
 
-String versionSuffix = ''
-// detect github action environment variables
-// https://docs.github.com/en/actions/learn-github-actions/environment-variables#default-environment-variables
-if (System.getenv("BUILD_RELEASE") != "true") {
-	String buildNumber = System.getenv("BUILD_ID")
-	versionSuffix += buildNumber != null ? ('+build.' + buildNumber) : '-SHAPSHOT'
-}
-String fullModVersion = project.mod_version + versionSuffix
 
-version = 'v' + fullModVersion
+archivesBaseName = project.archives_base_name + "-" + project.minecraft_version
+version = project.parent.version
 group = project.maven_group
-archivesBaseName = project.archives_base_name + '-mc' + project.minecraft_version
 
 processResources {
-	inputs.property "version", fullModVersion
-
-	filesMatching("fabric.mod.json") {
-		def valueMap = [
-				"id": project.mod_id,
-				"name": project.mod_name,
-				"version": fullModVersion,
-				"minecraft_dependency": project.minecraft_dependency,
-		]
-		expand valueMap
-	}
-}
-
-// https://github.com/Fallen-Breath/yamlang
-yamlang {
-	targetSourceSets = [sourceSets.main]
-	inputDir = 'assets/template_mod/lang'
+    inputs.property("version", version)
+    filesMatching("fabric.mod.json") {
+        expand(["mod_version"         : project.version,
+                "mod_id"              : project.mod_id,
+                "mod_name"            : project.mod_name,
+                "minecraft_dependency": project.minecraft_dependency,
+                "minecraft_version_id": project.minecraft_version.replace(".", "_"),
+                "minecraft_version"   : project.minecraft_version,
+                "magiclib_version"    : project.magiclib_version
+        ])
+    }
 }
 
 // ensure that the encoding is set to UTF-8, no matter what the system default is
 // this fixes some edge cases with special characters not displaying correctly
 // see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
 tasks.withType(JavaCompile) {
-	options.encoding = "UTF-8"
+    options.encoding = "UTF-8"
 }
 
 java {
-	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
-	// if it is present.
-	// If you remove this line, sources will not be generated.
-	withSourcesJar()
+    // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
+    // if it is present.
+    // If you remove this line, sources will not be generated.
+    withSourcesJar()
 }
 
 jar {
-	from(rootProject.file('LICENSE')) {
-		rename { "${it}_${project.archivesBaseName}"}
-	}
+    from("../../LICENSE")
 }
 
-// https://github.com/hierynomus/license-gradle-plugin
-license {
-	// use "gradle licenseFormat" to apply license headers
-	header = rootProject.file('HEADER.txt')
-	include '**/*.java'
-	skipExistingHeaders = true
-
-	headerDefinitions {
-		// ref: https://github.com/mathieucarbou/license-maven-plugin/blob/4c42374bb737378f5022a3a36849d5e23ac326ea/license-maven-plugin/src/main/java/com/mycila/maven/plugin/license/header/HeaderType.java#L48
-		// modification: add a newline at the end
-		SLASHSTAR_STYLE_NEWLINE {
-			firstLine = "/*"
-			beforeEachLine = " * "
-			endLine = " */" + System.lineSeparator()
-			afterEachLine = ""
-			skipLinePattern = null
-			firstLineDetectionPattern = "(\\s|\\t)*/\\*.*\$"
-			lastLineDetectionPattern = ".*\\*/(\\s|\\t)*\$"
-			allowBlankLines = false
-			isMultiline = true
-			padLines = false
-		}
-	}
-	mapping {
-		java = 'SLASHSTAR_STYLE_NEWLINE'
-	}
-	ext {
-		name = project.mod_name
-		author = 'Fallen_Breath'
-		year = Calendar.getInstance().get(Calendar.YEAR).toString()
-	}
-}
-classes.dependsOn licenseFormatMain
-testClasses.dependsOn licenseFormatTest
-
-// configure the maven publication
 publishing {
-	publications {
-		mavenJava(MavenPublication) {
-			artifactId archivesBaseName
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId = "${project.mod_id}-${project.minecraft_version.replace(".", "_")}"
+            version = project.version
+            from(components.java)
+        }
+    }
 
-			from components.java
-		}
-	}
-
-	// select the repositories you want to publish to
-	repositories {
-		// uncomment to publish to the local maven
-		// mavenLocal()
-	}
+    repositories {
+        mavenLocal()
+        maven {
+            url("$rootDir/publish")
+        }
+    }
 }

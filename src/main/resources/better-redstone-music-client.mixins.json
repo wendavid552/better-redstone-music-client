@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.arcueid.betterRedstoneMusicClient.mixins",
+  "compatibilityLevel": "JAVA_8",
+  "plugin": "top.hendrixshen.magiclib.MagicMixinPlugin",
+  "client": [
+    "feature.disableDifferentBlockUsage.MixinClientPlayerInteractionManager"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -1,32 +1,36 @@
 {
   "schemaVersion": 1,
-  "id": "${id}",
-  "version": "${version}",
-
-  "name": "${name}",
-  "description": "",
+  "id": "${mod_id}-${minecraft_version_id}",
+  "version": "${mod_version}",
+  "icon":,
+  "name": "${mod_name} for ${minecraft_version}",
+  "description": "${mod_name} for ${minecraft_version}",
   "authors": [
-    "Fallen_Breath"
+    {
+      "name": "wendavid552",
+      "contact": {
+        "homepage": "https://github.com/wendavid552"
+      }
+    }
   ],
-  "contact": {
-    "homepage": "https://www.curseforge.com/",
-    "sources": "https://github.com/"
-  },
-
-  "icon": "assets/template_mod/icon.png",
-
-  "environment": "*",
+  "environment": "client",
   "entrypoints": {
-    "main": [
-      "me.fallenbreath.template_mod.TemplateMod"
+    "client": [
+      "net.arcueid.betterRedstoneMusicClient.BetterMusicClient"
     ]
   },
   "mixins": [
-    "template_mod.mixins.json"
+    "${mod_id}.mixins.json"
   ],
-
   "depends": {
-    "fabricloader": ">=0.11.4",
-    "minecraft": "${minecraft_dependency}"
+    "minecraft": "${minecraft_dependency}",
+    "magiclib-${minecraft_version_id}": ">=${magiclib_version}"
+  },
+  "custom": {
+    "modmenu:clientsideOnly": true,
+    "modmenu:parent": "${mod_id}",
+    "modmenu": {
+      "parent": "${mod_id}"
+    }
   }
 }

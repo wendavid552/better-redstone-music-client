@@ -8,6 +8,10 @@ pluginManagement {
             name = 'Jitpack'
             url = "https://jitpack.io"
         }
+        maven {
+            name = 'Cotton'
+            url = 'https://server.bbkr.space/artifactory/libs-release/'
+        }
         mavenCentral()
         gradlePluginPortal()
     }
@@ -16,11 +20,6 @@ pluginManagement {
             switch (requested.id.id) {
                 case "com.replaymod.preprocess": {
                     useModule("com.github.Fallen-Breath:preprocessor:${requested.version}")
-                    break
-                }
-                case "me.fallenbreath.yamlang": {
-                    useModule("com.github.Fallen-Breath:yamlang:${requested.version}")
-                    break
                 }
             }
         }
@@ -33,8 +32,7 @@ def versions = Arrays.asList(
         "1.16.5",
         "1.17.1",
         "1.18.2",
-        "1.19.x",
-//        "snapshot",
+        "1.19.2",
 )
 for (String version : versions) {
     include(":$version")
@@ -43,3 +41,4 @@ for (String version : versions) {
     proj.projectDir = file("versions/$version")
     proj.buildFileName = "../../common.gradle"
 }
+//include(":fabricWrapper")

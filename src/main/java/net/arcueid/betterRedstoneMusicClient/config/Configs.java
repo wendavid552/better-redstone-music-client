@@ -1,36 +1,17 @@
 package net.arcueid.betterRedstoneMusicClient.config;
 
 import com.google.common.collect.Lists;
-import com.plusls.ommc.ModInfo;
-import com.plusls.ommc.gui.GuiConfigs;
-import fi.dy.masa.malilib.config.IConfigOptionListEntry;
-import fi.dy.masa.malilib.config.options.ConfigBoolean;
 import fi.dy.masa.malilib.config.options.ConfigHotkey;
-import fi.dy.masa.malilib.hotkeys.KeybindSettings;
-import fi.dy.masa.malilib.util.restrictions.UsageRestriction;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import net.arcueid.betterRedstoneMusicClient.ModInfo;
+import net.arcueid.betterRedstoneMusicClient.gui.GuiConfigs;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.MultiPlayerGameMode;
-import net.minecraft.client.resources.language.I18n;
-import net.minecraft.client.resources.sounds.SimpleSoundInstance;
-import net.minecraft.core.BlockPos;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.HitResult;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.core.config.Configurator;
-import top.hendrixshen.magiclib.config.ConfigHandler;
 import top.hendrixshen.magiclib.config.ConfigManager;
-import top.hendrixshen.magiclib.config.Option;
 import top.hendrixshen.magiclib.config.annotation.Config;
 import top.hendrixshen.magiclib.config.annotation.Hotkey;
-import top.hendrixshen.magiclib.config.annotation.Numeric;
-import top.hendrixshen.magiclib.dependency.annotation.Dependencies;
-import top.hendrixshen.magiclib.dependency.annotation.Dependency;
-import top.hendrixshen.magiclib.dependency.annotation.OptionDependencyPredicate;
+
+import java.util.ArrayList;
 
 public class Configs {
   // GENERIC
