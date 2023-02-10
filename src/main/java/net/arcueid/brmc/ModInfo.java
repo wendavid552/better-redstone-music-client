@@ -1,33 +1,34 @@
 package net.arcueid.brmc;
 
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import top.hendrixshen.magiclib.compat.minecraft.network.chat.ComponentCompatApi;
 import top.hendrixshen.magiclib.config.ConfigHandler;
 import top.hendrixshen.magiclib.language.I18n;
-// #else
+//#if MC > 11502
+import net.minecraft.network.chat.MutableComponent;
+//#else
 //$$ import net.minecraft.network.chat.BaseComponent;
-// #endif
+//#endif
 
 public class ModInfo {
   public static String MOD_ID = "brmc";
 
-  // #if MC > 11802
+  //#if MC > 11802
   public static final String CURRENT_MOD_ID = MOD_ID + "-1_19";
-  // #elseif MC > 11701
+  //#elseif MC > 11701
   //$$ public static final String CURRENT_MOD_ID = MOD_ID + "-1_18_2";
-  // #elseif MC > 11605
+  //#elseif MC > 11605
   //$$ public static final String CURRENT_MOD_ID = MOD_ID + "-1_17_1";
-  // #elseif MC > 11502
+  //#elseif MC > 11502
   //$$ public static final String CURRENT_MOD_ID = MOD_ID + "-1_16_5";
-  // #elseif MC > 11404
+  //#elseif MC > 11404
   //$$ public static final String CURRENT_MOD_ID = MOD_ID + "-1_15_2";
-  // #else
+  //#else
   //$$ public static final String CURRENT_MOD_ID = MOD_ID + "-1_14_4";
-  // #endif
+  //#endif
 
   public static final String MOD_NAME = FabricLoader.getInstance()
                                             .getModContainer(CURRENT_MOD_ID)
@@ -49,11 +50,11 @@ public class ModInfo {
   }
 
   public static
-      // #if MC > 11502
+      //#if MC > 11502
       MutableComponent
-      // #else
+      //#else
       //$$ BaseComponent
-      // #endif
+      //#endif
       translatable(String key, Object... objects) {
     return ComponentCompatApi.translatable(ModInfo.MOD_ID + "." + key, objects);
   }

@@ -19,14 +19,14 @@ public class MixinClientPlayerInteractionManager {
     @Inject(method = "useItemOn", at = @At(value = "HEAD"), cancellable = true)
     private void
     preventIntentionalGameDesign(LocalPlayer player,
-                                 // #if MC <= 11802
+                                 //#if MC <= 11802
                                  //$$ ClientLevel world,
-                                 // #endif
+                                 //#endif
                                  InteractionHand hand, BlockHitResult hitResult,
                                  CallbackInfoReturnable<InteractionResult> cir) {
-        // #if MC > 11802
+        //#if MC > 11802
         ClientLevel world = (ClientLevel) player.getLevel();
-        // #endif
+        //#endif
         if (!Configs.disableDifferentBlockUsage) {
             return;
         }
