@@ -1,9 +1,9 @@
-package net.arcueid.betterRedstoneMusicClient.config;
+package net.arcueid.brmc.config;
 
 import com.google.common.collect.Lists;
 import fi.dy.masa.malilib.config.options.ConfigHotkey;
-import net.arcueid.betterRedstoneMusicClient.ModInfo;
-import net.arcueid.betterRedstoneMusicClient.gui.GuiConfigs;
+import net.arcueid.brmc.ModInfo;
+import net.arcueid.brmc.gui.GuiConfigs;
 import net.minecraft.client.Minecraft;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.core.config.Configurator;

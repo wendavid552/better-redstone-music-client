@@ -1,0 +1,14 @@
+{
+  "brmc.gui.title.configs": "Better Redstone Music Client 设置 - 版本: %s",
+  "brmc.gui.button.tab.generic": "通用",
+  "brmc.gui.button.tab.feature_toggle": "特性开关",
+  "brmc.gui.button.tab.lists": "列表",
+  "brmc.config.generic.openConfigGui.name": "打开设置界面",
+  "brmc.config.generic.openConfigGui.comment": "打开设置界面的快捷键",
+  "brmc.config.generic.debug.name": "调试模式",
+  "brmc.config.generic.debug.comment": "开启后将会打印调试日志",
+  "brmc.config.feature_toggle.disableDifferentBlockUsage.name": "禁止用不同物品调整",
+  "brmc.config.feature_toggle.disableDifferentBlockUsage.comment": "限制只能对面对的方块使用同种物品，例如只能用红石中继器使用红石中继器",
+  "brmc.config.lists.differentBlockUsageBlacklist.name": "不同物品调整列表黑名单",
+  "brmc.config.lists.differentBlockUsageBlacklist.comment": "不同物品调整列表黑名单，列表内方块只能使用同种物品调节"
+}

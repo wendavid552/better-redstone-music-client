@@ -1,7 +1,7 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "net.arcueid.betterRedstoneMusicClient.mixins",
+  "package": "net.arcueid.brmc.mixins",
   "compatibilityLevel": "JAVA_8",
   "plugin": "top.hendrixshen.magiclib.MagicMixinPlugin",
   "client": [

@@ -1,7 +1,6 @@
-package net.arcueid.betterRedstoneMusicClient;
+package net.arcueid.brmc;
 
 import net.fabricmc.loader.api.FabricLoader;
-// #if MC > 11502
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
@@ -14,7 +13,7 @@ import top.hendrixshen.magiclib.language.I18n;
 // #endif
 
 public class ModInfo {
-  public static String MOD_ID = "better_redstone_music_client";
+  public static String MOD_ID = "brmc";
 
   // #if MC > 11802
   public static final String CURRENT_MOD_ID = MOD_ID + "-1_19";

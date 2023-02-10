@@ -1,0 +1,14 @@
+{
+  "brmc.gui.title.configs": "Better Redstone Music Client - Config - Version: %s",
+  "brmc.gui.button.tab.generic": "Generic",
+  "brmc.gui.button.tab.feature_toggle": "Feature Toggles",
+  "brmc.gui.button.tab.lists": "Lists",
+  "brmc.config.generic.openConfigGui.name": "openConfigGui",
+  "brmc.config.generic.openConfigGui.comment": "A hotkey to open the in-game Config GUI",
+  "brmc.config.generic.debug.name": "debug",
+  "brmc.config.generic.debug.comment": "Display debug message",
+  "brmc.config.feature_toggle.disableDifferentBlockUsage.name": "disableDifferentBlockUsage",
+  "brmc.config.feature_toggle.disableDifferentBlockUsage.comment": "Only allow same type item to be used on a block of the type.",
+  "brmc.config.lists.differentBlockUsageBlacklist.name": "differentBlockUsageBlacklist",
+  "brmc.config.lists.differentBlockUsageBlacklist.comment": "differentBlockUsageBlacklist"
+}

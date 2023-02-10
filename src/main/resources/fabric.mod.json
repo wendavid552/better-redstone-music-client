@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "${mod_id}-${minecraft_version_id}",
   "version": "${mod_version}",
-  "icon":,
+  "icon": "assets/brmc/icon.png",
   "name": "${mod_name} for ${minecraft_version}",
   "description": "${mod_name} for ${minecraft_version}",
   "authors": [
@@ -16,11 +16,11 @@
   "environment": "client",
   "entrypoints": {
     "client": [
-      "net.arcueid.betterRedstoneMusicClient.BetterMusicClient"
+      "net.arcueid.brmc.BetterRedstoneMusicClient"
     ]
   },
   "mixins": [
-    "${mod_id}.mixins.json"
+    "brmc.mixin.json"
   ],
   "depends": {
     "minecraft": "${minecraft_dependency}",
