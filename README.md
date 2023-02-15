@@ -11,5 +11,6 @@ This mod is made for a better Minecraft client for producing redstone music.
 
 ### Feature
 
-**disableDifferentBlockUsage**
-玩家只有在手上有和目标方块一致的物品时才可以右键使用在**不一致方块使用黑名单**中的方块
+**disableDifferentBlockUsage**  
+玩家只有在手上有和目标方块一致的物品时才可以右键使用在**不一致方块使用黑名单**中的方块  
+设置窗口快捷键：O+C
