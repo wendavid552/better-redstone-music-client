@@ -25,12 +25,12 @@ public class Configs {
   // FEATURE_TOGGLE
   @Hotkey
   @Config(category = ConfigCategory.FEATURE_TOGGLE)
-  public static boolean disableDifferentBlockUsage = false;
+  public static boolean disableDifferentBlockUsage = true;
 
   // LISTS
   @Config(category = ConfigCategory.LISTS)
   public static ArrayList<String> differentBlockUsageBlackList =
-      Lists.newArrayList("minecraft:redstone_repeater");
+      Lists.newArrayList("minecraft:repeater");
 
   public static void init(ConfigManager cm) {
     // GENERIC
