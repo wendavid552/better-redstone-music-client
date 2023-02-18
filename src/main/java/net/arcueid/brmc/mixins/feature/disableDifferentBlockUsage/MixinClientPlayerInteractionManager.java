@@ -33,9 +33,9 @@ public class MixinClientPlayerInteractionManager {
         Block block = world.getBlockState(hitResult.getBlockPos()).getBlock();
         String blockId = Registry.BLOCK.getKey(block).toString();
         String blockName = block.getName().getString();
-        if (Configs.differentBlockUsageBlackList.stream().noneMatch(
+        if (Configs.differentBlockUsageBlackList.stream().anyMatch(
                 s -> blockId.contains(s) || blockName.contains(s))
-                && player.getItemInHand(hand).is(block.asItem())) {
+                &&!player.getItemInHand(hand).is(block.asItem())) {
             cir.setReturnValue(InteractionResult.SUCCESS);
         }
     }
